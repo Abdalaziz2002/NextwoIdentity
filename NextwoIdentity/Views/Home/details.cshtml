@@ -1,0 +1,23 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "details";
+}
+
+<h1>details</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <td><label asp-for="Name"></label></td>
+        <td>@Model.Name</td><!--we use @Model to get the props from the class-->
+    </tr>
+    <tr>
+        <td><label asp-for="price"></label></td>
+        <td>@Model.price</td>
+    </tr>
+    <tr>
+        <td><label asp-for="Category!.CategoryId"></label></td>
+        <td>@Model.CategoryId</td>
+    </tr>
+
+</table>
+<a asp-action="allProducts" class="alert-link">go back</a>

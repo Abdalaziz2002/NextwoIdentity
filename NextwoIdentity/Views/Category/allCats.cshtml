@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Category>
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+@{
+    ViewData["Title"] = "allCats";
+}
+
+<h1>allCats</h1>
+@if (signInManager.IsSignedIn(User))
+{
+    if (User.IsInRole("Admin"))
+    {
+        <a asp-action="createcat"
+   asp-controller="CategoryController"
+           class="btn btn-primary">Add new product</a>
+
+    }
+    else
+    {
+
+    }
+}
+<table class="table table-bordered">
+    <tr>
+        <td>@Html.DisplayNameFor(c=>c.CategoryId)</td>
+        <td>@Html.DisplayNameFor(c=>c.type)</td>
+    </tr>
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.CategoryId</td>
+            <td>@emp.type</td>
+          
+            <td>
+                <ul>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <a asp-route-id="@emp.CategoryId" asp-action="deletecat" asp-controller="CategoryController" class="btn btn-outline-danger">Delete</a>
+                            <a asp-route-id="@emp.CategoryId" asp-action="editcat" asp-controller="CategoryController" class="btn btn-outline-warning">Edit</a>
+                            <a asp-route-id="@emp.CategoryId" asp-action="catdetails" asp-controller="CategoryController" class="btn btn-outline-info">details</a>
+
+                        }
+                        else
+                        {
+                            <a asp-route-id="@emp.CategoryId" asp-action="catdetails" asp-controller="CategoryController" class="btn btn-outline-info">details</a>
+                        }
+                    }
+
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
